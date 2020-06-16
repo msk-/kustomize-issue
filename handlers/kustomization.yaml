@@ -1,0 +1,4 @@
+nameSuffix: -suffix
+
+resources:
+  - ./deployment.yaml

@@ -1,0 +1,32 @@
+resources:
+  - ./mysql
+  - ./handlers
+
+configMapGenerator:
+  - name: mysql
+    behavior: merge
+    literals:
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=user
+
+patches:
+  - target:
+      kind: Deployment
+      name: s.*
+    patch: |-
+      kind: Deployment
+      metadata:
+        name: ignored
+      spec:
+        template:
+          spec:
+            containers:
+              - name: handler
+                envFrom:
+                  - configMapRef:
+                      name: mysql
+                env:
+                  - valueFrom:
+                      configMapKeyRef:
+                        name: mysql
+                        key: MYSQL_DATABASE

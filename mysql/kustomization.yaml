@@ -1,0 +1,5 @@
+configMapGenerator:
+  - name: mysql
+    literals:
+      - MYSQL_USER=mysql
+      - MYSQL_DATABASE=default
